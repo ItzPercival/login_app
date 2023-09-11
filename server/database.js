@@ -22,5 +22,18 @@ export function createUser(username, password){
 } 
 
 export function loginUser(username, password){
-    // const check = db.query(`SELECT * FROM login_app WHERE user`)
+    return new Promise((resolve, reject) => {  
+      const check = `SELECT * FROM login_app WHERE username = ?`;
+      db.query(check, [username], (err, results, fields) => {
+        if (err) {
+          console.error('Error executing query:', err);
+          reject("false");
+        }
+        if (results.length > 0 && results[0].password === password) {
+          resolve("true");
+        } else {
+          resolve("false");
+        }
+      });})
+
 }
