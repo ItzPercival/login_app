@@ -9,8 +9,8 @@ const db = mysql.createPool({
   password: process.env.PASSWORD,
   database: 'login',
   waitForConnections: true,
-  maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
-  idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
+  maxIdle: 10,
+  idleTimeout: 60000, 
   enableKeepAlive: true,
   keepAliveInitialDelay: 0
 });
@@ -23,19 +23,30 @@ export function createUser(username, password){
     return added;
 } 
 
-export function loginUser(username, password){
-    return new Promise((resolve, reject) => {  
-      const check = `SELECT * FROM login_app WHERE username = ?`;
-      db.query(check, [username], (err, results, fields) => {
-        if (err) {
-          console.error('Error executing query:', err);
-          reject("false");
-        }
-        if (results.length > 0 && results[0].password === password) {
-          resolve("true");
-        } else {
-          resolve("false");
-        }
-      });})
-
+export function getUserPass(username) {
+  return new Promise((resolve, reject) => {
+    const check = `SELECT * FROM login_app WHERE username = ?`;
+    db.query(check, [username], (err, results, fields) => {
+      if (err) {
+        // Handle the error and reject the Promise.
+        reject(err);
+      }
+      if (results.length > 0) {
+        db.query(`SELECT password FROM login_app WHERE username = ?`, [username], (err, result) => {
+          if (err) {
+            // Handle the error and reject the Promise.
+            reject(err);
+          } else {
+            // Resolve the Promise with the password.
+            resolve(result[0].password);
+          }
+        });
+      } else {
+        // Resolve the Promise with an error message.
+        resolve("Error: User or password does not exist");
+      }
+    });
+  });
 }
+
+
