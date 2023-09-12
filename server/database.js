@@ -15,6 +15,18 @@ const db = mysql.createPool({
   keepAliveInitialDelay: 0
 });
 
+export function checkUser(username) {
+  let dbQuery = []
+  const check = `SELECT * FROM login_app WHERE username = ?`;
+  db.query(check, [username], (err, results, field) => {
+    dbQuery = results
+  })
+  if(dbQuery.length > 0){
+    return false
+  } else {
+    return true
+  }
+}
 
 export function createUser(username, password){
     const added = db.query(`INSERT INTO login_app(username, password)
@@ -28,22 +40,18 @@ export function getUserPass(username) {
     const check = `SELECT * FROM login_app WHERE username = ?`;
     db.query(check, [username], (err, results, fields) => {
       if (err) {
-        // Handle the error and reject the Promise.
         reject(err);
       }
       if (results.length > 0) {
         db.query(`SELECT password FROM login_app WHERE username = ?`, [username], (err, result) => {
           if (err) {
-            // Handle the error and reject the Promise.
             reject(err);
           } else {
-            // Resolve the Promise with the password.
             resolve(result[0].password);
           }
         });
       } else {
-        // Resolve the Promise with an error message.
-        resolve("Error: User or password does not exist");
+        reject("Error: User or password does not exist");
       }
     });
   });
