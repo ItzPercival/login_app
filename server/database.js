@@ -1,10 +1,12 @@
 import mysql from 'mysql2'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 const db = mysql.createPool({
   host: '127.0.0.1',
   user: 'root',
-  password: "shadow!",
+  password: process.env.PASSWORD,
   database: 'login',
   waitForConnections: true,
   maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
