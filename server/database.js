@@ -22,9 +22,9 @@ export function checkUser(username) {
     dbQuery = results
   })
   if(dbQuery.length > 0){
-    return false
-  } else {
     return true
+  } else {
+    return false
   }
 }
 

@@ -1,7 +1,7 @@
 import {  createUser, checkUser } from "../database.js";
 import bcrypt from 'bcrypt'
 
-export function registerProcess(req, res){
+export default function registerProcess(req, res){
     if(checkUser(req.body.username)){
         res.send("Account with that username already exists!")
     } else {
