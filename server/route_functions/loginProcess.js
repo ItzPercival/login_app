@@ -12,7 +12,6 @@ export default function loginProcess(req, res) {
             "username": req.body.username,
             "roles": ["User"]
         }
-
         bcrypt.compare(req.body.password, hashedPass, (err, result) => {
             if(err){
                 //password does not match
@@ -22,7 +21,6 @@ export default function loginProcess(req, res) {
                 const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 15 })
                 res.cookie("token", token, {
                     httpsOnly: true,
-                    secure: false,
                 })
                 res.send("Logged in!")
                 return result;
