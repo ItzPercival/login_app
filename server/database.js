@@ -16,16 +16,21 @@ const db = mysql.createPool({
 });
 
 export function checkUser(username) {
-  let dbQuery = []
-  const check = `SELECT * FROM login_app WHERE username = ?`;
-  db.query(check, [username], (err, results, field) => {
-    dbQuery = results
-  })
-  if(dbQuery.length > 0){
-    return true
-  } else {
-    return false
-  }
+  return new Promise((resolve, reject) => {
+    const check = `SELECT * FROM login_app WHERE username = ?`;
+    db.query(check, [username], (err, results, field) => {
+      if (err) {
+        reject(err);
+      } else {
+        if (results.length >= 1) {
+          // User exists
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      }
+    });
+  });
 }
 
 export function createUser(username, password){
