@@ -6,9 +6,13 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 const app = Express();
+const allowedOrigins = 'http://localhost:3000'
 app.use(Express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }))
 
 app.post('/register', registerProcess)
 

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from 'axios'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Login() {
+    const nav = useNavigate()
     const [ input, setInput ] = useState({username: "", password: ""})
 
     const handleInput = (e) => {
@@ -15,6 +16,7 @@ function Login() {
         axios.post("http://localhost:8080/login", input)
         .then((response) => {
             console.log(response)
+            nav("/welcome")
         }).catch((err) => {
             console.log(err)
         }) 
