@@ -12,7 +12,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("localhost:8080/login", input)
+        axios.post("http://localhost:8080/login", input)
         .then((response) => {
             console.log(response)
         }).catch((err) => {

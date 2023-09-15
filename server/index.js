@@ -3,10 +3,12 @@ import loginProcess from './route_functions/loginProcess.js';
 import registerProcess from './route_functions/registerProcess.js';
 import verifyJwt from './route_functions/jwtTokenVerification.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 
 const app = Express();
 app.use(Express.json())
 app.use(cookieParser())
+app.use(cors())
 
 app.post('/register', registerProcess)
 
