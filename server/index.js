@@ -16,5 +16,5 @@ app.get('/welcome', verifyJwt, (req, res) => {
     res.send("You did it man");
 })
 
-const PORT = 3000 || process.env.PORT
+const PORT = 8080 || process.env.PORT
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`))

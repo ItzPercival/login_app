@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import { Link } from "react-router-dom";
+
 
 function Login() {
-
     const [ input, setInput ] = useState({username: "", password: ""})
 
     const handleInput = (e) => {
         setInput({...input, [e.target.id]: e.target.value})
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        axios.post("localhost:8080/login", input)
+        .then((response) => {
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        }) 
 
     }
 
@@ -35,10 +43,14 @@ function Login() {
                 placeholder="Password"
             />
             </div>
-            <div className="mx-auto">
-                <button type="subimt" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div className="flex justify-around">
+                <button type="subimt" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Submit
                 </button>
+                <Link to="/register" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Register
+                </Link>
+                
             </div>
         </form>
     </div>

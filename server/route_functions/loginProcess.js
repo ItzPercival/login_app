@@ -18,7 +18,7 @@ export default function loginProcess(req, res) {
                 res.send("error in comparing passwords")
                 return err;
             } else if (result){
-                const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 15 })
+                const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 60 })
                 res.cookie("token", token, {
                     httpsOnly: true,
                 })
