@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
     const nav = useNavigate()
+    const [ error, setError ] = useState();
     const [ input, setInput ] = useState({username: "", password: ""})
 
     const handleInput = (e) => {
@@ -21,13 +22,11 @@ function Login() {
                     httpsOnly: true,
                     secure: false,
                 })
-            // nav("/welcome")
+            setError()
+            nav("/welcome")
         }).catch((err) => {
-            console.log(err)
+            setError(err.response.data)
             console.log("error :)")
-            return (
-                <div>no user existing</div>
-            )
         }) 
 
     }
@@ -60,9 +59,13 @@ function Login() {
                 </button>
                 <Link to="/register" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Register
-                </Link>
-                
+                </Link>   
             </div>
+            {error ? 
+            <div className="p-2 flex m-0 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-200 dark:text-red-400" role="alert">
+                {error}
+            </div> 
+            : null}
         </form>
     </div>
   );

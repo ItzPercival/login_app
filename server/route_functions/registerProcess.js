@@ -2,6 +2,10 @@ import {  createUser, checkUser } from "../database.js";
 import bcrypt from 'bcrypt'
 
 export default function registerProcess(req, res){
+    if(req.body.username == '' || req.body.password == ''){
+        res.status(400).send("Please insert a username and a password")
+        return null
+    }
     checkUser(req.body.username)
     .then((doesntExist) => {
         if(doesntExist) {
@@ -15,7 +19,7 @@ export default function registerProcess(req, res){
             }
         })
         } else {
-            res.send("Account with that username already exists!")
+            res.status(400).send("Account with that username already exists!")
             return null
         }
     }

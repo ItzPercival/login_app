@@ -5,7 +5,11 @@ import env from 'dotenv'
 
 env.config()
 
-export default function loginProcess(req, res) {    
+export default function loginProcess(req, res) {
+    if(req.body.username == '' || req.body.password == ''){
+        res.status(400).send("Please insert a username and a password")
+        return null
+    }    
     getUserPass(req.body.username).then((password) => {
         const hashedPass = password
         const user = {
