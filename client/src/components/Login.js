@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import cookie from 'js-cookie'
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -15,10 +16,18 @@ function Login() {
         e.preventDefault()
         axios.post("http://localhost:8080/login", input)
         .then((response) => {
-            console.log(response)
-            nav("/welcome")
+            console.log("not error")
+            cookie.set("token", response.data, {
+                    httpsOnly: true,
+                    secure: false,
+                })
+            // nav("/welcome")
         }).catch((err) => {
             console.log(err)
+            console.log("error :)")
+            return (
+                <div>no user existing</div>
+            )
         }) 
 
     }

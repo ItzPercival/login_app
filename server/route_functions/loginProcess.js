@@ -19,18 +19,12 @@ export default function loginProcess(req, res) {
                 return err;
             } else if (result){
                 const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 60 })
-                res.cookie("token", token, {
-                    httpsOnly: true,
-                    secure: true,
-                    SameSite: 'None',
-                })
-                res.send("Logged in!")
+                res.send(token)
                 return result;
             }
         })
     }).catch((err) =>{
-        console.log(err)
-        res.send(err)
+        res.status(400).send(err)
     })
 }
 
