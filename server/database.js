@@ -22,11 +22,12 @@ export function checkUser(username) {
       if (err) {
         reject(err);
       } else {
-        if (results.length >= 1) {
+        if (results.length > 1) {
           // User exists
           resolve(false);
         } else {
-          resolve(true);
+          console.log(results)
+          resolve(true);        
         }
       }
     });
@@ -62,4 +63,15 @@ export function getUserPass(username) {
   });
 }
 
+async function createAdminFirst() {
+  try {
+    const User = await checkUser('admin')
+    if(User){
+      createUser('admin', 'admin')
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+createAdminFirst()
 

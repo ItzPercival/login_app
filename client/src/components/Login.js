@@ -46,7 +46,7 @@ function Login() {
             </div>
             <div>
             <input
-                type="text"
+                type="password"
                 onChange={handleInput}
                 className="placeholder:text-slate-200 block min-h-[auto] w-full border rounded bg-inherit px-3 py-[0.32rem] leading-[1.6] outline-none"
                 id="password"
