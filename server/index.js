@@ -19,7 +19,7 @@ app.post('/register', registerProcess)
 
 app.post('/login', loginProcess)
 
-app.get('/refresh', refreshToken)
+app.post('/refresh', refreshToken)
 
 app.get('/welcome', verifyJwt, (req, res) => {
     res.send("You did it man");

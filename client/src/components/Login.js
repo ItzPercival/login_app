@@ -18,7 +18,8 @@ function Login() {
         axios.post("http://localhost:8080/login", input)
         .then((response) => {
             console.log("not error")
-            cookie.set("token", response.data, {
+            sessionStorage.setItem('refresh', response.data[1])
+            cookie.set("token", response.data[0], {
                     httpsOnly: true,
                     secure: false,
                 })

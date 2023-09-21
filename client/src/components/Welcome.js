@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import cookie from 'js-cookie'
 
+
 function Welcome() {
     const [response, setResponse] = useState('')
 
@@ -11,10 +12,11 @@ function Welcome() {
             setResponse(response)
         })
         .catch((err) => {
-            axios.get('http://localhost:8080/refresh')
+            axios.post('http://localhost:8080/refresh', {refreshTok: sessionStorage.getItem('refresh')})
             .then((response) =>{
                 cookie.set("token", response.data, {
                     httpsOnly: true,
+                    secure: false,
                 })
             })
             .catch((err) => {

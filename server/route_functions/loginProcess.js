@@ -25,8 +25,7 @@ export default function loginProcess(req, res) {
             } else if (result){
                 const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 60 })
                 const refreshTok = jwt.sign(user, process.env.REFRESH, { expiresIn: '10m' })
-                window.sessionStorage.setItem('refresh', refreshTok)
-                res.send(token)
+                res.send([token, refreshTok])
                 return result;
             }
         })
