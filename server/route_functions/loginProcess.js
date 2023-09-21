@@ -14,8 +14,9 @@ export default function loginProcess(req, res) {
         const hashedPass = password
         const user = {
             "username": req.body.username,
-            "roles": ["User"]
+            "roles": ["User"],
         }
+
         bcrypt.compare(req.body.password, hashedPass, (err, result) => {
             if(err){
                 //password does not match
@@ -23,6 +24,8 @@ export default function loginProcess(req, res) {
                 return err;
             } else if (result){
                 const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 60 })
+                const refreshTok = jwt.sign(user, process.env.REFRESH, { expiresIn: '10m' })
+                window.sessionStorage.setItem('refresh', refreshTok)
                 res.send(token)
                 return result;
             }

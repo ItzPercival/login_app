@@ -63,15 +63,3 @@ export function getUserPass(username) {
   });
 }
 
-async function createAdminFirst() {
-  try {
-    const User = await checkUser('admin')
-    if(User){
-      createUser('admin', 'admin')
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
-createAdminFirst()
-

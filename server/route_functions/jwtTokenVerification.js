@@ -11,7 +11,7 @@ export default function verifyJwt(req, res, next){
         next();
     } catch (err) {
         res.clearCookie("token");
-        return res.send("Problem with auth")
+        return res.status(401).send("Unauthorized")
     }
 }
 

@@ -25,7 +25,7 @@ function Login() {
             setError()
             nav("/welcome")
         }).catch((err) => {
-            setError(err.response.data)
+            setError(err.response?.data)
             console.log("error :)")
         }) 
 
@@ -56,10 +56,13 @@ function Login() {
             <div className="flex justify-around">
                 <button type="subimt" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Submit
-                </button>
-                <Link to="/register" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Register
-                </Link>   
+                </button> 
+            </div>
+            <div>
+                    Dont have an account? 
+                    <Link to="/register" className="ml-3 underline">
+                        Click here
+                    </Link>
             </div>
             {error ? 
             <div className="p-2 flex m-0 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-200 dark:text-red-400" role="alert">

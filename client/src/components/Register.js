@@ -55,7 +55,7 @@ function Register() {
                     <Link to="/" className="ml-3 underline">
                         Click here
                     </Link>
-                </div> 
+            </div> 
             {error ? 
             <div className="p-2 flex m-0 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-200 dark:text-red-400" role="alert">
                 {error}
