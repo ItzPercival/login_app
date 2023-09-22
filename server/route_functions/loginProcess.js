@@ -23,7 +23,7 @@ export default function loginProcess(req, res) {
                 res.send("error in comparing passwords")
                 return err;
             } else if (result){
-                const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 60 })
+                const token = jwt.sign(user, process.env.MY_SECRET, { expiresIn: 5 })
                 const refreshTok = jwt.sign(user, process.env.REFRESH, { expiresIn: '10m' })
                 res.send([token, refreshTok])
                 return result;
