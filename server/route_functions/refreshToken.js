@@ -9,7 +9,7 @@ export default function refreshToken (req, res) {
             if(err){
                 return res.status(401).send("You are unauthorized")
             } else {
-                const accToken = jwt.sign({username: decoded.username, roles: decoded.roles}, process.env.MY_SECRET, { expiresIn: 60 })
+                const accToken = jwt.sign({username: decoded.username, roles: decoded.roles}, process.env.MY_SECRET, { expiresIn: 10 })
                 return res.send(accToken)
             }
         })
